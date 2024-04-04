@@ -1,5 +1,6 @@
 ﻿using CtlLibraryBindings;
 using FanControl.Plugins;
+using System.Linq;
 
 namespace FanControl.IntelCtlLibraryPlugin
 {

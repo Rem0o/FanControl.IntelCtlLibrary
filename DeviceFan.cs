@@ -1,4 +1,5 @@
 ﻿using CtlLibraryBindings;
+using System;
 
 namespace FanControl.IntelCtlLibraryPlugin
 {
