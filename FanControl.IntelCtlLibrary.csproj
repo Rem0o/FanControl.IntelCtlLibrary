@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Dlls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CtlLibraryCSharpWrapper">
+      <HintPath>Dlls\CtlLibraryCSharpWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FanControl.Plugins">
+      <HintPath>Dlls\FanControl.Plugins.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
