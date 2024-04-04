@@ -17,5 +17,5 @@ And then
 
 ## Notes
 
-* _This is an experimental plugin_. Their WILL be bugs. Use at your own risk. PR are welcomed.
+* _This is an experimental plugin_. There WILL be bugs. Use at your own risk. PR are welcomed.
 * Wrapper from https://github.com/Rem0o/drivers.gpu.control-library.bindings
