@@ -15,7 +15,12 @@ namespace FanControl.IntelCtlLibraryPlugin
         {
             _disposable?.Dispose();
             _disposable = null;
-            CtlLibrary.ctlClose(_apiHandle).ThrowIfError("Close");
+
+            if (_apiHandle != null)
+            {
+                CtlLibrary.ctlClose(_apiHandle).ThrowIfError("Close");
+                _apiHandle = null;
+            }
         }
 
         public void Initialize()
@@ -28,7 +33,6 @@ namespace FanControl.IntelCtlLibraryPlugin
             {
                 _apiHandle = CtlLibrary.ctl_api_handle_t_PtrPtr_value(handlePtr);
             }
-
         }
 
         public void Load(IPluginSensorsContainer _container)
