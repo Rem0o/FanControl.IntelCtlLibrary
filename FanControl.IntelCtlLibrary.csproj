@@ -21,9 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Dlls\CtlLibraryCSharpBind.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+	<ContentWithTargetPath Include="Dlls\CtlLibraryCSharpBind.dll">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  <TargetPath>CtlLibraryCSharpBind.dll</TargetPath>
+	</ContentWithTargetPath>
     <Resource Include="Dlls\CtlLibraryCSharpWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
