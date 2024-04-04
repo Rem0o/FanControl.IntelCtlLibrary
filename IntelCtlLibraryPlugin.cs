@@ -8,8 +8,14 @@ namespace FanControl.IntelCtlLibraryPlugin
     {
         private CompositeDisposable? _disposable;
         private SWIGTYPE_p__ctl_api_handle_t? _apiHandle;
+        private readonly IPluginLogger _logger;
 
         public string Name => "IntelCtlLibrary";
+
+        public IntelCtlLibraryPlugin(IPluginLogger logger)
+        {
+            _logger = logger;
+        }
 
         public void Close()
         {
@@ -29,9 +35,14 @@ namespace FanControl.IntelCtlLibraryPlugin
             ctl_init_args_t initArgs = CtlLibrary.create_Init_Args().DisposeWith(_disposable);
             var handlePtr = CtlLibrary.new_ctl_api_handle_t_PtrPtr().DisposeWith(_disposable, CtlLibrary.delete_ctl_api_handle_t_PtrPtr);
 
-            if (CtlLibrary.ctlInit(initArgs, handlePtr) == ctl_result_t.CTL_RESULT_SUCCESS)
+            ctl_result_t initResult = CtlLibrary.ctlInit(initArgs, handlePtr);
+            if (initResult == ctl_result_t.CTL_RESULT_SUCCESS)
             {
                 _apiHandle = CtlLibrary.ctl_api_handle_t_PtrPtr_value(handlePtr);
+            }
+            else
+            {
+                _logger.Log($"Could not init CtlLibrary: {initResult}");
             }
         }
 
