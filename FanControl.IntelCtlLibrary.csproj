@@ -2,12 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
+	<OutputType>Library</OutputType>
     <Nullable>enable</Nullable>
-	  <LangVersion>8.0</LangVersion>
+	<LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dlls\" />
+    <None Remove="Dlls\CtlLibraryCSharpBind.dll" />
+    <None Remove="Dlls\CtlLibraryCSharpWrapper.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,15 @@
     <Reference Include="FanControl.Plugins">
       <HintPath>Dlls\FanControl.Plugins.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Dlls\CtlLibraryCSharpBind.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Dlls\CtlLibraryCSharpWrapper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
