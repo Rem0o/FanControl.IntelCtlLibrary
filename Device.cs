@@ -15,14 +15,13 @@ namespace FanControl.IntelCtlLibraryPlugin
             using (var disposable = new CompositeDisposable())
             {
                 var uintPtr = CtlLibrary.new_unsigned_int_Ptr().DisposeWith(disposable, CtlLibrary.delete_unsigned_int_Ptr);
-                var deviceArrayPtr = CtlLibrary.new_ctl_device_adapter_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_device_adapter_handle_t_PtrPtr);
-                CtlLibrary.ctlEnumerateDevices(apiHandle, uintPtr, deviceArrayPtr).ThrowIfError("Enumerate");
+                var _ = CtlLibrary.new_ctl_device_adapter_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_device_adapter_handle_t_PtrPtr);
+                CtlLibrary.ctlEnumerateDevices(apiHandle, uintPtr, _).ThrowIfError("Enumerate devices");
+                var n = Convert.ToInt32(CtlLibrary.unsigned_int_Ptr_value(uintPtr));
+                var array = new DeviceAdapterHandleArray(n).DisposeWith(disposable);
+                CtlLibrary.ctlEnumerateDevices(apiHandle, uintPtr, array.cast()).ThrowIfError("Enumerate devices");
 
-                var array = DeviceAdapterHandleArray.frompointer(deviceArrayPtr);
-                var n = CtlLibrary.unsigned_int_Ptr_value(uintPtr);
-                var devices = Enumerable.Range(0, Convert.ToInt32(n)).Select(array.getitem).Select((x, i) => new Device(x, i)).ToArray();
-
-                return devices;
+                return Enumerable.Range(0, n).Select(array.getitem).Select((x, i) => new Device(x, i)).ToArray(); ;
             }
         }
 
@@ -31,12 +30,13 @@ namespace FanControl.IntelCtlLibraryPlugin
             using (var disposable = new CompositeDisposable())
             {
                 var uintPtr = CtlLibrary.new_unsigned_int_Ptr();
-                var arrayPtr = CtlLibrary.new_ctl_fan_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_fan_handle_t_PtrPtr);
-                var fanHandles = CtlLibrary.ctlEnumFans(deviceHandle, uintPtr, arrayPtr);
+                var _ = CtlLibrary.new_ctl_fan_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_fan_handle_t_PtrPtr);
+                CtlLibrary.ctlEnumFans(deviceHandle, uintPtr, _).ThrowIfError("Enum fans");
+                int n = Convert.ToInt32(CtlLibrary.unsigned_int_Ptr_value(uintPtr));
+                var fanArray = new FanHandleArray(n);
+                CtlLibrary.ctlEnumFans(deviceHandle, uintPtr, fanArray.cast()).ThrowIfError("Enum fans");
 
-                var fanArray = FanHandleArray.frompointer(arrayPtr);
-
-                return Enumerable.Range(0, Convert.ToInt32(CtlLibrary.unsigned_int_Ptr_value(uintPtr))).Select(fanArray.getitem).ToArray();
+                return Enumerable.Range(0, n).Select(fanArray.getitem).ToArray();
             }
         }
 
@@ -45,12 +45,13 @@ namespace FanControl.IntelCtlLibraryPlugin
             using (var disposable = new CompositeDisposable())
             {
                 var uintPtr = CtlLibrary.new_unsigned_int_Ptr().DisposeWith(disposable, CtlLibrary.delete_unsigned_int_Ptr);
-                var tempArrayPtr = CtlLibrary.new_ctl_temp_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_temp_handle_t_PtrPtr);
-                CtlLibrary.ctlEnumTemperatureSensors(handle, uintPtr, tempArrayPtr).ThrowIfError("Enumerate temperature sensors");
+                var _ = CtlLibrary.new_ctl_temp_handle_t_PtrPtr().DisposeWith(disposable, CtlLibrary.delete_ctl_temp_handle_t_PtrPtr);
+                CtlLibrary.ctlEnumTemperatureSensors(handle, uintPtr, _).ThrowIfError("Enumerate temperature sensors");
+                int n = Convert.ToInt32(CtlLibrary.unsigned_int_Ptr_value(uintPtr));
+                var tempArray = new TempHandleArray(n);
+                CtlLibrary.ctlEnumTemperatureSensors(handle, uintPtr, tempArray.cast()).ThrowIfError("Enumerate temperature sensors");
 
-                var tempArray = TempHandleArray.frompointer(tempArrayPtr);
-                var tempHandles = Enumerable.Range(0, Convert.ToInt32(CtlLibrary.unsigned_int_Ptr_value(uintPtr))).Select(tempArray.getitem).ToArray();
-                return tempHandles;
+                return Enumerable.Range(0, n).Select(tempArray.getitem).ToArray();
             }
         }
 

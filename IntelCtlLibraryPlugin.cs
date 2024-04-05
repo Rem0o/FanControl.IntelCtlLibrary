@@ -19,14 +19,14 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public void Close()
         {
-            _disposable?.Dispose();
-            _disposable = null;
-
             if (_apiHandle != null)
             {
                 CtlLibrary.ctlClose(_apiHandle).ThrowIfError("Close");
                 _apiHandle = null;
             }
+
+            _disposable?.Dispose();
+            _disposable = null;
         }
 
         public void Initialize()
