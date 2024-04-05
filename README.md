@@ -2,7 +2,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat&logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=N4JPSTUQHRJM8&currency_code=USD&source=url&item_name=Fan+Control)
 
-Plugin for [FanControl](https://github.com/Rem0o/FanControl.Releases) (net 8.0) that provides support for Intel ARC GPUs.
+Plugin for [FanControl](https://github.com/Rem0o/FanControl.Releases) (net 4.8) that provides support for Intel ARC GPUs.
 <br/><br/>
 
 ## To install
