@@ -33,12 +33,12 @@ namespace FanControl.IntelCtlLibraryPlugin
         {
             _disposable = new CompositeDisposable();
             ctl_init_args_t initArgs = CtlLibrary.create_Init_Args().DisposeWith(_disposable);
-            var handlePtr = CtlLibrary.new_ctl_api_handle_t_PtrPtr().DisposeWith(_disposable, CtlLibrary.delete_ctl_api_handle_t_PtrPtr);
+            var handlePtr = CtlLibrary.new_ctl_api_handle_t_Ptr().DisposeWith(_disposable, CtlLibrary.delete_ctl_api_handle_t_Ptr);
 
             ctl_result_t initResult = CtlLibrary.ctlInit(initArgs, handlePtr);
             if (initResult == ctl_result_t.CTL_RESULT_SUCCESS)
             {
-                _apiHandle = CtlLibrary.ctl_api_handle_t_PtrPtr_value(handlePtr);
+                _apiHandle = CtlLibrary.ctl_api_handle_t_Ptr_value(handlePtr);
             }
             else
             {
@@ -52,7 +52,6 @@ namespace FanControl.IntelCtlLibraryPlugin
             {
                 return;
             }
-
 
             var devices = Device.GetDevices(_apiHandle);
 
