@@ -48,12 +48,12 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public void Load(IPluginSensorsContainer _container)
         {
-            if (_apiHandle == null)
+            if (_apiHandle == null || _disposable == null)
             {
                 return;
             }
 
-            var devices = Device.GetDevices(_apiHandle);
+            var devices = Device.GetDevices(_apiHandle, _disposable);
 
             foreach (var device in devices)
             {
