@@ -29,11 +29,12 @@ namespace FanControl.IntelCtlLibraryPlugin
         {
             var rounded = (int)Math.Round(val);
             _fan.SetFanSpeedPercent(rounded);
+            val = rounded;
         }
 
         public void Update()
         {
-            Value = _fan.GetSpeedPercent();
+            //Value = _fan.GetSpeedPercent();
         }
     }
 }
