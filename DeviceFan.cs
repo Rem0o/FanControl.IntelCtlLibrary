@@ -52,5 +52,11 @@ namespace FanControl.IntelCtlLibraryPlugin
             _speed.speed = percent;
             CtlLibrary.ctlFanSetFixedSpeedMode(_fanHandle, _speed).ThrowIfError($"Setting fan speed to {percent}");
         }
+
+        public void SetFlatFanSpeedTable(int percent)
+        {
+            ctl_fan_speed_table_t table = new ctl_fan_speed_table_t();
+            CtlLibrary.SetFlatFanSpeedTable(_fanHandle, table, percent);
+        }
     }
 }
