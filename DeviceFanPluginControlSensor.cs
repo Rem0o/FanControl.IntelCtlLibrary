@@ -27,9 +27,13 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public void Set(float val)
         {
-            var rounded = (int)Math.Round(val);
-            _fan.SetFlatFanSpeedTable(rounded);
-            Value = rounded;
+            var roundedVal = (int)Math.Round(val);
+
+            if (roundedVal == Value)
+                return;
+
+            _fan.SetFlatFanSpeedTable(roundedVal);
+            Value = roundedVal;
         }
 
         public void Update()
