@@ -56,7 +56,7 @@ namespace FanControl.IntelCtlLibraryPlugin
         public void SetFlatFanSpeedTable(int percent)
         {
             ctl_fan_speed_table_t table = new ctl_fan_speed_table_t();
-            CtlLibrary.SetFlatFanSpeedTable(_fanHandle, table, percent);
+            CtlLibrary.SetFlatFanSpeedTable(_fanHandle, table, percent).ThrowIfError($"Setting flat table fan speed to {percent}");
         }
     }
 }
