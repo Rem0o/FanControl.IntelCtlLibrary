@@ -8,6 +8,7 @@ namespace FanControl.IntelCtlLibraryPlugin
         private readonly SWIGTYPE_p__ctl_fan_handle_t _fanHandle;
         private readonly SWIGTYPE_p_int _speedRequestPtr;
         private readonly ctl_fan_speed_t _speed;
+        private readonly ctl_fan_speed_table_t _table;
 
         public DeviceFan(SWIGTYPE_p__ctl_fan_handle_t fanHandle, int index)
         {
@@ -19,12 +20,15 @@ namespace FanControl.IntelCtlLibraryPlugin
                 units = ctl_fan_speed_units_t.CTL_FAN_SPEED_UNITS_PERCENT,
                 // version?
             };
+
+            _table = new ctl_fan_speed_table_t();
         }
 
         public int Index { get; }
 
         public void Dispose()
         {
+            _table.Dispose();
             Reset();
             CtlLibrary.delete_int_Ptr(_speedRequestPtr);
             _speed.Dispose();
@@ -55,8 +59,7 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public void SetFlatFanSpeedTable(int percent)
         {
-            ctl_fan_speed_table_t table = new ctl_fan_speed_table_t();
-            CtlLibrary.SetFlatFanSpeedTable(_fanHandle, table, percent).ThrowIfError($"Setting flat table fan speed to {percent}");
+            CtlLibrary.SetFlatFanSpeedTable(_fanHandle, _table, percent).ThrowIfError($"Setting flat table fan speed to {percent}");
         }
     }
 }
