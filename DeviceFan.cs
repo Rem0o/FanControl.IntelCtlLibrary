@@ -28,9 +28,9 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public void Dispose()
         {
-            _table.Dispose();
             Reset();
             CtlLibrary.delete_int_Ptr(_speedRequestPtr);
+            _table.Dispose();
             _speed.Dispose();
         }
 
