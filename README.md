@@ -7,13 +7,14 @@ Plugin for [FanControl](https://github.com/Rem0o/FanControl.Releases) (net 4.8) 
 
 ## To install
 
-* Download the latest binaries from [AppVeyor](https://ci.appveyor.com/project/Rem0o/fancontrol-intelctllibrary/build/artifacts)
+Either:
+* Download the latest binaries from [AppVeyor](https://ci.appveyor.com/project/Rem0o/fancontrol-intelctllibrary/build/artifacts) 
+* Download the latest [release](https://github.com/Rem0o/FanControl.IntelCtlLibrary/releases/)
 * Compile the solution.
 
 And then
 
-1. Copy the dlls into FanControl's "Plugins" folder with its . You might need to unblock them in their properties.
-3. Open FanControl and enjoy!
+* Use the install plugin button in FanControl's settings page.
 
 ## Notes
 
