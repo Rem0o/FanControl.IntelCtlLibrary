@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Dlls\CtlLibraryCSharpBind.dll" />
-    <None Remove="Dlls\CtlLibraryCSharpWrapper.dll" />
+    <None Remove="Dlls\CtlLibraryBindings.dll" />
+    <None Remove="Dlls\CtlLibraryWrapper.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="CtlLibraryCSharpWrapper">
-      <HintPath>Dlls\CtlLibraryCSharpWrapper.dll</HintPath>
+    <Reference Include="CtlLibraryWrapper">
+      <HintPath>Dlls\CtlLibraryWrapper.dll</HintPath>
     </Reference>
     <Reference Include="FanControl.Plugins">
       <HintPath>Dlls\FanControl.Plugins.dll</HintPath>
@@ -22,11 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-	<ContentWithTargetPath Include="Dlls\CtlLibraryCSharpBind.dll">
+	<ContentWithTargetPath Include="Dlls\CtlLibraryBindings.dll">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  <TargetPath>CtlLibraryCSharpBind.dll</TargetPath>
+	  <TargetPath>CtlLibraryBindings.dll</TargetPath>
 	</ContentWithTargetPath>
-    <Resource Include="Dlls\CtlLibraryCSharpWrapper.dll">
+    <Resource Include="Dlls\CtlLibraryWrapper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

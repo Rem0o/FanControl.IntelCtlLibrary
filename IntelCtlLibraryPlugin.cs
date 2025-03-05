@@ -12,7 +12,7 @@ namespace FanControl.IntelCtlLibraryPlugin
 
         public string Name => "IntelCtlLibrary";
 
-        public IntelCtlLibraryPlugin(IPluginLogger logger)
+        public IntelCtlLibraryPlugin(IPluginLogger logger, IPluginDialog dialog)
         {
             _logger = logger;
         }
