@@ -14,12 +14,15 @@ namespace FanControl.IntelCtlLibraryPlugin
             using (var properties = new ctl_temp_properties_t())
             {
                 CtlLibrary.ctlTemperatureGetProperties(handle, properties);
+                Id = properties.type.ToString();
                 Name = TypeToString(properties.type);
             }
 
             _handle = handle;
             doublePtr = CtlLibrary.new_double_Ptr();
         }
+
+        public string Id { get; }
 
         public string Name { get; }
 

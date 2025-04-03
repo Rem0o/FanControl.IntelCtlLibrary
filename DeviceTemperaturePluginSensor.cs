@@ -14,7 +14,7 @@ namespace FanControl.IntelCtlLibraryPlugin
             _deviceTemp = deviceTemp;
         }
 
-        public string Id => $"IntelCtlLibrary/{_device.Index}/temp/{_deviceTemp.Name}";
+        public string Id => $"IntelCtlLibrary/{_device.Index}/temp/{_deviceTemp.Id}";
 
         public string Name => $"{_device.Name} - {_deviceTemp.Name}";
 
