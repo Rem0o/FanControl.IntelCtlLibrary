@@ -3,11 +3,19 @@ using System;
 
 namespace FanControl.IntelCtlLibraryPlugin
 {
+    public enum DeviceFanControlMode
+    {
+        NoControl,
+        Fixed,
+        Table,
+    }
+
     public class DeviceFan : IDisposable
     {
         private readonly SWIGTYPE_p__ctl_fan_handle_t _fanHandle;
         private readonly SWIGTYPE_p_int _speedRequestPtr;
         private readonly ctl_fan_speed_t _speed;
+        private readonly ctl_fan_properties_t _properties;
         private readonly ctl_fan_speed_table_t _table;
 
         public DeviceFan(SWIGTYPE_p__ctl_fan_handle_t fanHandle, int index)
@@ -21,10 +29,23 @@ namespace FanControl.IntelCtlLibraryPlugin
                 // version?
             };
 
+            _properties = new ctl_fan_properties_t();
+            CtlLibrary.ctlFanGetProperties(fanHandle, _properties);
+            ControlMode = HasFlag(_properties, ctl_fan_speed_mode_t.CTL_FAN_SPEED_MODE_TABLE) ? DeviceFanControlMode.Table :
+                          HasFlag(_properties, ctl_fan_speed_mode_t.CTL_FAN_SPEED_MODE_FIXED) ? DeviceFanControlMode.Fixed :
+                          DeviceFanControlMode.NoControl;
+
             _table = new ctl_fan_speed_table_t();
         }
 
+        private static bool HasFlag(ctl_fan_properties_t properties, ctl_fan_speed_mode_t mode)
+        {
+            return (properties.supportedModes & (uint)mode) != 0;
+        }
+
         public int Index { get; }
+
+        public DeviceFanControlMode ControlMode { get; }
 
         public void Dispose()
         {
@@ -32,6 +53,7 @@ namespace FanControl.IntelCtlLibraryPlugin
             CtlLibrary.delete_int_Ptr(_speedRequestPtr);
             _table.Dispose();
             _speed.Dispose();
+            _properties.Dispose();
         }
 
         public void Reset()

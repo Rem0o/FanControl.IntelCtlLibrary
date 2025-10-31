@@ -32,7 +32,18 @@ namespace FanControl.IntelCtlLibraryPlugin
             if (roundedVal == Value)
                 return;
 
-            _fan.SetFlatFanSpeedTable(roundedVal);
+            switch (_fan.ControlMode)
+            {
+                case DeviceFanControlMode.Table:
+                    _fan.SetFlatFanSpeedTable(roundedVal);
+                    break;
+                case DeviceFanControlMode.Fixed:
+                    _fan.SetFanSpeedPercent(roundedVal);
+                    break;
+                default:
+                    return;
+            }
+
             Value = roundedVal;
         }
 
